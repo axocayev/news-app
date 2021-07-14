@@ -1,9 +1,8 @@
 package az.atlacademy.news.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,6 +16,12 @@ public class News {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
+
+    @ManyToOne
+    @JoinColumn(name="author_id",nullable = false)
+
+    private Author author;
+
     private Boolean isActive;
     private Boolean isDeleted;
 
@@ -76,6 +81,14 @@ public class News {
         isDeleted = deleted;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         return "News{" +
@@ -108,3 +121,6 @@ public class News {
         return Objects.hash(id, title, content, createdAt, updateAt, isActive, isDeleted);
     }
 }
+
+
+
