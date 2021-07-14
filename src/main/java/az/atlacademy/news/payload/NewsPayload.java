@@ -4,6 +4,16 @@ public class NewsPayload {
     private Long id;
     private String title;
     private String content;
+    private Long authorId;
+
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
 
     public String getTitle() {
         return title;
