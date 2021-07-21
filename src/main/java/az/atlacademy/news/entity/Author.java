@@ -1,10 +1,17 @@
 package az.atlacademy.news.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@Builder
+@NoArgsConstructor
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -17,37 +24,8 @@ public class Author {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "author",fetch = FetchType.EAGER)
     @JsonIgnore
+    @ToString.Exclude
     private Set<News> news;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Set<News> getNews() {
-        return news;
-    }
-
-    public void setNews(Set<News> news) {
-        this.news = news;
-    }
 }

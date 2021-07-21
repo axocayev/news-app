@@ -1,12 +1,17 @@
 package az.atlacademy.news.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
+
 
 ///POJO
+@Data
+@ToString(exclude = {"author","isDeleted"})
 @Entity
 public class News {
     @Id
@@ -14,113 +19,48 @@ public class News {
     private Long id;
     private String title;
     private String content;
+    private Long visitCount;
     private LocalDateTime createdAt;
+
     private LocalDateTime updateAt;
 
     @ManyToOne
     @JoinColumn(name="author_id",nullable = false)
-
     private Author author;
-
+    @Accessors(fluent = true)
     private Boolean isActive;
+    @Accessors(fluent = true)
     private Boolean isDeleted;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(LocalDateTime updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    @Override
-    public String toString() {
-        return "News{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createAt=" + createdAt +
-                ", updateAt=" + updateAt +
-                ", isActive=" + isActive +
-                ", isDeleted=" + isDeleted +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        News news = (News) o;
-        return Objects.equals(id, news.id) &&
-                Objects.equals(title, news.title) &&
-                Objects.equals(content, news.content) &&
-                Objects.equals(createdAt, news.createdAt) &&
-                Objects.equals(updateAt, news.updateAt) &&
-                Objects.equals(isActive, news.isActive) &&
-                Objects.equals(isDeleted, news.isDeleted);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, content, createdAt, updateAt, isActive, isDeleted);
-    }
 }
 
+class Test{
+    public static void main(String[] args) {
+        News news=new News();
+        news.setAuthor(new Author().builder().id(1L).name("Anar").surname("Xocayev").build());
+        news.setTitle("Title");//1871617447,  -1147234944, -1147195552
+        news.setContent("Content");
+        news.isDeleted(true);
+        news.isActive(true);
+
+        News news1=new News();
+        news1.setAuthor(new Author());
+        news1.setTitle("Title");//1871617447,  -1147234944, -1147195552
+        news1.setContent("Content");
+        news1.isDeleted(true);
+        news1.isActive(true);
+
+        System.out.println(news.hashCode());
+        System.out.println(news1.hashCode());
+
+        Set<News> newsSet=new HashSet<>();
+        newsSet.add(news);
+        newsSet.add(news1);
+        System.out.println(news.equals(news1));
+
+        System.out.println(newsSet.size());
+
+    }
+}
 
 
