@@ -1,5 +1,9 @@
 # Getting Started
 
+* [Official documentation for MD file ](https://guides.github.com/features/mastering-markdown/)
+
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
@@ -24,7 +28,7 @@ These additional references should also help you:
 
 ### POST host:8080/v1/news
 ### REQUEST
-```
+```JSON
 {
   "title":"New Title ddd",
   "content":"New Content fff",
@@ -36,7 +40,7 @@ These additional references should also help you:
 
 
 ### RESPONSE
-```
+```JSON
 {
      "id": 8,
      "title": "New Title ddd",
@@ -52,3 +56,13 @@ These additional references should also help you:
      "deleted": false
  }
 ```
+
+
+### JAVA
+```JAVA
+public class MyClass{
+
+}
+```
+
+

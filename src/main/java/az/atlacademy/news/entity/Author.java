@@ -1,10 +1,7 @@
 package az.atlacademy.news.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,10 +19,9 @@ public class Author {
     private String name;
     private String surname;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "author",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "author",fetch = FetchType.LAZY)
     @JsonIgnore
     @ToString.Exclude
     private Set<News> news;
-
 
 }
