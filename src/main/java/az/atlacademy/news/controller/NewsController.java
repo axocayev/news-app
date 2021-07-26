@@ -2,11 +2,11 @@ package az.atlacademy.news.controller;
 
 import az.atlacademy.news.entity.News;
 import az.atlacademy.news.payload.NewsPayload;
-import az.atlacademy.news.repository.NewsRepository;
 import az.atlacademy.news.service.NewsService;
-import lombok.NonNull;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +15,20 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/news")
+@Api(produces = MediaType.APPLICATION_JSON_VALUE,tags = " News CRUD operations ")
 public class NewsController {
 
-    private final @NonNull NewsService newsService;
+    private final NewsService newsService;
 
     @PostMapping
+    @ApiOperation(value="This method create NEWS",response = News.class ,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @ApiResponses(value={
+            @ApiResponse(code=200 ,message = "News was successfuly created"),
+            @ApiResponse(code=500 ,message = "Internal server error ocured")
+
+    })
     ResponseEntity<News>  createNews(@RequestBody NewsPayload newsPayload){
         System.out.println("Controller " + newsPayload);
      return new  ResponseEntity<>(newsService. createNews(newsPayload), HttpStatus.CREATED)   ;
@@ -32,12 +41,13 @@ public class NewsController {
     }
     @GetMapping
     ResponseEntity<List<News>>  getAll(){
-        System.out.println("Controller " );
         return new  ResponseEntity<>(newsService.getAll(), HttpStatus.OK)   ;
     }
     @GetMapping("/{newsId}")
-    ResponseEntity<News>  getAll(@PathVariable("newsId") Long newsId ){
-        System.out.println("Controller " );
+    ResponseEntity<News>  getAll(
+            @ApiParam(value = "news id" ,name = "newsId",example = "12")
+            @PathVariable("newsId") Long newsId ){
+
         return new  ResponseEntity<>(newsService.getNewsById(newsId), HttpStatus.OK)   ;
     }
 
