@@ -33,7 +33,7 @@ public class News {
     private Boolean isDeleted;
 
 }
-
+/*
 class Test{
     public static void main(String[] args) {
         News news=new News();
@@ -63,4 +63,4 @@ class Test{
     }
 }
 
-
+*/

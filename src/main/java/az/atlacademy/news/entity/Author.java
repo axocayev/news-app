@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
-@Builder
+
 @NoArgsConstructor
 @Entity
 @Table(name = "authors")

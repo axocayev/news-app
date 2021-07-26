@@ -2,9 +2,7 @@ package az.atlacademy.news.controller;
 
 import az.atlacademy.news.entity.News;
 import az.atlacademy.news.payload.NewsPayload;
-import az.atlacademy.news.repository.NewsRepository;
 import az.atlacademy.news.service.NewsService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/news")
+
 public class NewsController {
 
-    private final @NonNull NewsService newsService;
+    private final NewsService newsService;
 
     @PostMapping
     ResponseEntity<News>  createNews(@RequestBody NewsPayload newsPayload){
