@@ -8,6 +8,8 @@ class NewsAppApplicationTests {
 
     @Test
     void contextLoads() {
+
+
     }
 
 }
