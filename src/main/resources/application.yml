@@ -5,8 +5,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/news_app
-    username: postgres
-    password: root
+    username: ${POSTGRES_USERNAME:blablausername}
+    password: ${POSTGRES_PASSWORD:blablapasswrod}
   jpa:
     properties:
       hibernate:
@@ -16,3 +16,8 @@ spring:
       ddl-auto: none
     show-sql: true
 
+cron:
+  mail-sender:
+    schedule-time: ${CRON_MAIL_SENDER:0-59 * * * * *}
+  reply-notification:
+    schedule-time-mail-send: ${CRON_NOTIFICATION_SENDER:0/1 * * * * *}
