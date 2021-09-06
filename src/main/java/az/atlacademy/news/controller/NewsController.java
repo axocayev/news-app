@@ -2,6 +2,7 @@ package az.atlacademy.news.controller;
 
 import az.atlacademy.news.entity.News;
 import az.atlacademy.news.payload.NewsPayload;
+import az.atlacademy.news.repository.MathRepository;
 import az.atlacademy.news.service.NewsService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 public class NewsController {
 
     private final NewsService newsService;
-
+    private  final MathRepository mathRepository;
     @PostMapping
     @ApiOperation(value="This method create NEWS",response = News.class ,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,16 +32,23 @@ public class NewsController {
     })
     ResponseEntity<News>  createNews(@RequestBody NewsPayload newsPayload){
         System.out.println("Controller " + newsPayload);
+
      return new  ResponseEntity<>(newsService. createNews(newsPayload), HttpStatus.CREATED)   ;
     }
 
     @PutMapping
     ResponseEntity<News>  updateNews(@RequestBody NewsPayload newsPayload){
         System.out.println("Controller " + newsPayload);
-        return new  ResponseEntity<>(newsService.updateNews(newsPayload), HttpStatus.OK)   ;
+        //return new  ResponseEntity<>(newsService.updateNews(newsPayload), HttpStatus.OK)   ;
+      //  return   ResponseEntity.status(200).body(newsService.updateNews(newsPayload))   ;
+        return   ResponseEntity.ok().body(newsService.updateNews(newsPayload))   ;
     }
     @GetMapping
     ResponseEntity<List<News>>  getAll(){
+        System.out.println("get_count " + mathRepository.getCount(12,3));
+        System.out.println(mathRepository.getCountJdbc(1));
+        System.out.println(mathRepository.authors(1));
+
         return new  ResponseEntity<>(newsService.getAll(), HttpStatus.OK)   ;
     }
     @GetMapping("/{newsId}")
