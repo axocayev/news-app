@@ -1,5 +1,6 @@
 package az.atlacademy.news.controller;
 
+import az.atlacademy.news.dto.NewsDto;
 import az.atlacademy.news.entity.News;
 import az.atlacademy.news.payload.NewsPayload;
 import az.atlacademy.news.repository.MathRepository;
@@ -52,11 +53,22 @@ public class NewsController {
         return new  ResponseEntity<>(newsService.getAll(), HttpStatus.OK)   ;
     }
     @GetMapping("/{newsId}")
-    ResponseEntity<News>  getAll(
+    ResponseEntity<News>  getnewByID(
             @ApiParam(value = "news id" ,name = "newsId",example = "12")
             @PathVariable("newsId") Long newsId ){
 
         return new  ResponseEntity<>(newsService.getNewsById(newsId), HttpStatus.OK)   ;
     }
+
+
+    @GetMapping("/mapper/{newsId}")
+    ResponseEntity<NewsDto>  getnewById2(
+            @ApiParam(value = "news id" ,name = "newsId",example = "12")
+            @PathVariable("newsId") Long newsId ){
+
+        return new  ResponseEntity<>(newsService.getNewsByIdMapper(newsId), HttpStatus.OK)   ;
+    }
+
+
 
 }

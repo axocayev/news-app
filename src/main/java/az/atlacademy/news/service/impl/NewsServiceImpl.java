@@ -1,6 +1,8 @@
 package az.atlacademy.news.service.impl;
 
+import az.atlacademy.news.dto.NewsDto;
 import az.atlacademy.news.entity.News;
+import az.atlacademy.news.mapper.NewsMapper;
 import az.atlacademy.news.payload.NewsPayload;
 import az.atlacademy.news.repository.AuthorRepository;
 import az.atlacademy.news.repository.NewsRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -32,7 +35,6 @@ public class NewsServiceImpl implements NewsService {
         news.setCreatedAt(LocalDateTime.now());
         news.setUpdateAt(LocalDateTime.now());
         news.setAuthor(authorRepository.findById(newsPayload.getAuthorId()).get());
-
         log.info("Service {}", news);
         news = newsRepository.save(news);
 
@@ -42,15 +44,17 @@ public class NewsServiceImpl implements NewsService {
     public News updateNews(NewsPayload newsPayload) {
 
         log.info("Service {}", newsPayload);
-
+        var check=true;
+        var cnt=123;
+        var dt=LocalDateTime.now();
         News news = new News();
         news.setId(newsPayload.getId());
-        news.isActive(true);
+        news.isActive(check);
         news.isDeleted(false);
         news.setTitle(newsPayload.getTitle());
         news.setContent(newsPayload.getContent());
-        news.setCreatedAt(LocalDateTime.now());
-        news.setUpdateAt(LocalDateTime.now());
+        news.setCreatedAt(dt);
+        news.setUpdateAt(dt);
 
 
         log.info("Service {}", news);
@@ -66,5 +70,11 @@ public class NewsServiceImpl implements NewsService {
     public News getNewsById(Long newsId) {
         return newsRepository.findByIdAndIsActiveIsTrueAndIsDeletedIsFalse(newsId)
                 .orElseThrow(() -> new RuntimeException("Not found "));
+    }
+
+    public NewsDto getNewsByIdMapper(Long newsId) {
+        News news = newsRepository.findByIdAndIsActiveIsTrueAndIsDeletedIsFalse(newsId).get();
+        NewsDto newsDto = NewsMapper.INSTANCE.newsEntityToDto(news);
+        return newsDto;
     }
 }

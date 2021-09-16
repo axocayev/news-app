@@ -1,5 +1,6 @@
 package az.atlacademy.news.service.mock;
 
+import az.atlacademy.news.dto.NewsDto;
 import az.atlacademy.news.entity.Author;
 import az.atlacademy.news.entity.News;
 import az.atlacademy.news.payload.NewsPayload;
@@ -45,5 +46,11 @@ public class NewsServiceMock implements NewsService {
         news.setVisitCount(12L);
 
         return news;
+    }
+
+    @Override
+    public NewsDto getNewsByIdMapper(Long newsId) {
+
+        return new NewsDto();
     }
 }
